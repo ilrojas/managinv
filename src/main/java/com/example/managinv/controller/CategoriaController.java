@@ -38,7 +38,6 @@ public class CategoriaController {
             String categoriaJSON = objectMapper.writeValueAsString(categoria);
             categoriaService.guardarCategoria(categoriaJSON);   
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return "redirect:/";   
