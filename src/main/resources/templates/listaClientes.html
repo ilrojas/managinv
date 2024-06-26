@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1>
+            
+                <button type="button" class="btn btn-primary btn-sm" title="Adicionar" th:onclick="acciones(ACTIONS.ADD,'/api/microservice/cliente/formRegistrarCliente',null)">
+                    <i class="fa fa-plus"></i>
+                    Nuevo
+                </button>
+        </div>
+
+        <h4> <span th:text="${subtitulo}">Subtitulo</span> </h4>
+        <div class="table-responsive" th:if="${listado!=null and !listado.empty}">
+            <table class="table table-striped table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Cliente</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Direccion</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${listado}" th:id="${cliente.id_cliente}">
+                        <td th:text="${cliente.id_cliente}"></td>
+                        <td th:text="${cliente.nombre}"></td>
+                        <td th:text="${cliente.email_cliente}"></td>
+                        <td th:text="${cliente.telefono_cliente}"></td>
+                        <td th:text="${cliente.direccion_cliente}"></td>
+                        <td >
+                            <button type="button" class="btn btn-success btn-sm" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,'/api/managinv/devolverCliente','[(${cliente.id_cliente})]')">
+                                <i class="fa fa-eye"></i>
+                                Detalles
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,null)">
+                                <i class="fa fa-pen"></i>
+                                Editar
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" title="Eliminar" th:onclick="acciones(ACTIONS.DELETE,null,null)">
+                                <i class="fa fa-trash"></i>
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>                   
+                    <!-- Más filas según sea necesario -->
+                </tbody>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                    </ul>
+                </nav>
+            </table>
+        </div> 
+        <div th:if="${listado==null or listado.empty}">No se encontraron datos almacenados</div>   
+    </body>
+</html>

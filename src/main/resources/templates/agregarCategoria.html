@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+        
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1>            
+    </div>
+
+    <h4> <span th:text="${subtitulo}">Subtitulo</span> </h4>
+    <div class="container mt-5">
+        <form th:action="@{/api/microservice/categoria/registrarCategoria}" th:object="${categoria}" method="POST">
+          <div class="mb-3">
+            <label for="nombreCategoria" class="form-label">Nombre Categoria</label>
+            <input type="text" th:field="*{nombre}" class="form-control" id="nombreCategoria" name="nombreCategoria" placeholder="Ingrese el nombre de la categoria"required>
+          </div>          
+          <button type="submit" name="registrarCategoría" class="btn btn-primary">Registrar Categoria</button>
+        </form>
+    </div>
+</body>
+</html>

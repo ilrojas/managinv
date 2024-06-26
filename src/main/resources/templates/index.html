@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Inventory</title>
+    <!-- Bootstrap CSS desde el CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Incluir jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Librería de FA -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+    <style>
+        body {
+            padding-top: 56px; /* Espacio para el navbar fijo */
+        }
+        #sidebar {
+            position: fixed;
+            top: 56px; /* Alineación debajo del navbar */
+            left: 0;
+            width: 200px;
+            height: calc(100vh - 56px); /* Altura ajustada para ocupar el espacio restante */
+            padding-top: 20px;
+            background-color: #343a40; /* Color de fondo del sidebar */
+            color: #fff; /* Color de texto del sidebar */
+        }
+        #content {
+            margin-left: 200px; /* Ancho del sidebar */
+            padding: 20px;
+            overflow: auto;
+            height: auto;
+        }
+        .sidebar .nav-link {
+            color: #adb5bd;
+        }
+        .sidebar .nav-link:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra lateral -->
+    <nav id="sidebar">
+        <div class="position-sticky">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/cliente/devolverClientes')">
+                        <i class="fa fa-user me-2"></i>
+                        Clientes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/producto/devolverProductos')">
+                        <i class="fa fa-store me-2"></i>
+                        Inventario de Productos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/categoria/devolverCategorias')">
+                        <i class="fa fa-tag me-2"></i>
+                        Categorías de Productos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/proveedores/devolverProveedores')">
+                        <i class="fa fa-truck me-2"></i>
+                        Proveedores
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/ordenesVenta/devolverOrdenesVenta')">
+                        <i class="fa fa-file me-2"></i>
+                        Ordenes de Venta
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/ordenesCompra/devolverOrdenesCompra')">
+                        <i class="fa fa-clipboard me-2"></i>
+                        Ordenes de Compra
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+
+    <!-- Barra de navegación -->
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><span th:text="${titulo}"></span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Configuración</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div id="content">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+        </div>
+        <!-- Aquí se cargará el contenido dinámicamente -->
+    </div>
+    
+    <!-- Bootstrap JS y dependencias Popper.js desde el CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const ACTIONS= {
+            DETAILS:'DETAILS',
+            ADD:'ADD',
+            DELETE:'DELETE',
+            EDIT:'EDIT',
+            PRINCIPAL_MENU:'PRINCIPAL_MENU'
+        };
+
+        function cargarVista(url,id=null,tipo) {
+            $.ajax({
+                url: url,
+                type: tipo,
+                success: function(data) {
+                    $('#content').html(data);
+                },
+                error: function() {
+                    $('#content').html('A ocurrido un error al cargar el contenido. Estamos trabajando para solucionar el problema.');
+                }
+            });
+        }  
+        
+        function acciones(accion,url=null,id=null) {
+            switch (accion) {
+                case "DETAILS":
+                    /*cargarVista(url+"?id="+id)*/
+                    cargarVista(url,id,'GET');
+                    break;
+                case "EDIT":
+                cargarVista(url,id,'GET');
+                    break;
+                case "ADD":
+                cargarVista(url,null,'GET');
+                    break;
+                case "DEL":
+                var respuesta = confirm('¿Quieres eliminar el elemento?');
+                (respuesta)?cargarVista(url,id,'GET'):alert('no lo eliminaste')
+                    break;
+            
+                default:
+                alert('clicaste en una accion');
+                    break;
+            }
+
+            /*$.ajax({
+                url: url,
+                type: 'DELETE',
+                success: function(data) {
+                    cargarVista('/api/managinv/listaCategorias');
+                },
+                error: function() {
+                    alert('Error al cargar la vista.');
+                }
+            });*/
+        }
+    </script>
+</body>
+</html>
+
+
