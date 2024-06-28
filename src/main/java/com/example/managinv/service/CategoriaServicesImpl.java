@@ -3,6 +3,8 @@ package com.example.managinv.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,17 +43,24 @@ public class CategoriaServicesImpl implements ICategoriaService{
     @Transactional
     @Override
     public Boolean guardarCategoria(String categoria) {
-        // TODO Auto-generated method stub
-        try {
+        
             CategoriaModel categorianew=new Gson().fromJson(categoria, CategoriaModel.class);
-            return categoriaDAO.guardarCategoria(categorianew)!=null?true:false;
-            
-        } catch (Exception e) {
-            // TODO: handle exception
-            return false;
-        }
+            CategoriaModel result= categoriaDAO.guardarCategoria(categorianew);
+            if(result != null)
+                return true;  
+            else
+                return false;        
+        
         
     }
+
+    @Transactional
+    public Boolean actualizarCategoria(CategoriaModel categoriaModel) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actualizarCategoria'");
+    }
+
+    
 
     
 }

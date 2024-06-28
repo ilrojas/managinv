@@ -9,8 +9,10 @@ import com.example.managinv.model.ClienteModel;
 
 public interface IClienteService {
 
-	Optional<ClienteModel> devolverCliente(int id);
+	
 	List<ClienteModel> devolverClientes();
 	Boolean guardarCliente(String cliente);
+	Optional<ClienteModel> devolverCliente(int id);
 	void eliminarCliente(int id);
+	Boolean actualizarCliente(ClienteModel cliente);
 }

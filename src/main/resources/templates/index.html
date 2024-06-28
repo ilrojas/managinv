@@ -37,6 +37,14 @@
         .sidebar .nav-link:hover {
             color: #fff;
         }
+        .nav-item-side{
+            transition: .2s ease-in-out;
+        }
+        .nav-item-side:hover{
+            transform: translateX(15px)
+                       scale(1.08);
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -44,37 +52,37 @@
     <nav id="sidebar">
         <div class="position-sticky">
             <ul class="nav flex-column">
-                <li class="nav-item">
+                <li class="nav-item nav-item-side">
                     <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/cliente/devolverClientes')">
                         <i class="fa fa-user me-2"></i>
                         Clientes
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-side">
                     <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/producto/devolverProductos')">
                         <i class="fa fa-store me-2"></i>
                         Inventario de Productos
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-side">
                     <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/categoria/devolverCategorias')">
                         <i class="fa fa-tag me-2"></i>
                         Categorías de Productos
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-side">
                     <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/proveedores/devolverProveedores')">
                         <i class="fa fa-truck me-2"></i>
                         Proveedores
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-side">
                     <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/ordenesVenta/devolverOrdenesVenta')">
                         <i class="fa fa-file me-2"></i>
                         Ordenes de Venta
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item nav-item-side">
                     <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/ordenesCompra/devolverOrdenesCompra')">
                         <i class="fa fa-clipboard me-2"></i>
                         Ordenes de Compra
@@ -116,6 +124,12 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
         </div>
+        <div class="alert alert-success" role="alert" th:if="${successMessage}" style="color:green;">
+            <p th:text="${successMessage}"></p>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${errorMessage}" style="color:red;">
+            <p th:text="${errorMessage}"></p>
+        </div>
         <!-- Aquí se cargará el contenido dinámicamente -->
     </div>
     
@@ -133,7 +147,7 @@
             PRINCIPAL_MENU:'PRINCIPAL_MENU'
         };
 
-        function cargarVista(url,id=null,tipo) {
+        function cargarVista(url,id=null,tipo) {            
             $.ajax({
                 url: url,
                 type: tipo,
@@ -158,13 +172,14 @@
                 case "ADD":
                 cargarVista(url,null,'GET');
                     break;
-                case "DEL":
+                case "DELETE":
+                alert(id);
                 var respuesta = confirm('¿Quieres eliminar el elemento?');
-                (respuesta)?cargarVista(url,id,'GET'):alert('no lo eliminaste')
+                (respuesta)?cargarVista(url+id,null,'GET'):alert('No fue eliminado el elemento');
                     break;
             
                 default:
-                alert('clicaste en una accion');
+                //alert('clicaste en una accion');
                     break;
             }
 

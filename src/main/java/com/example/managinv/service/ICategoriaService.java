@@ -11,4 +11,5 @@ public interface ICategoriaService {
     List<CategoriaModel> devolverCategorias();
     void eliminarCategoria(int id);
     Boolean guardarCategoria(String categoria);
+    Boolean actualizarCategoria(CategoriaModel categoriaModel);
 }

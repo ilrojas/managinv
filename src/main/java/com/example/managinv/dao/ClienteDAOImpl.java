@@ -29,16 +29,9 @@ public class ClienteDAOImpl implements IClienteDAO{
 	}
 
 	@Override
-	public Boolean guardarCliente(ClienteModel cliente) {
+	public ClienteModel guardarCliente(ClienteModel cliente) {
 		// TODO Auto-generated method stub
-		try {
-			clienteRepository.save(cliente);
-			return true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return false;
-		}
-		
+		return clienteRepository.save(cliente);		
 	}
 
 	@Override
@@ -46,5 +39,13 @@ public class ClienteDAOImpl implements IClienteDAO{
 		// TODO Auto-generated method stub
 		clienteRepository.deleteById(id);
 	}
+
+	@Override
+	public ClienteModel actualizarCliente(ClienteModel cliente) {
+		// TODO Auto-generated method stub
+		return clienteRepository.save(cliente);
+	}
+
+	
 
 }

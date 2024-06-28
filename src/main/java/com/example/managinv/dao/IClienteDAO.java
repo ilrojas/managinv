@@ -9,7 +9,8 @@ public interface IClienteDAO {
 	
 	Optional<ClienteModel> devolverCliente(int id);
 	List<ClienteModel> devolverClientes();
-	Boolean guardarCliente(ClienteModel cliente);
+	ClienteModel guardarCliente(ClienteModel cliente);
 	void eliminarCliente(int id);
+	ClienteModel actualizarCliente(ClienteModel cliente);
 	
 }

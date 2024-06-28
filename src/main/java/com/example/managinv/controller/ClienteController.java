@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -30,16 +32,19 @@ public class ClienteController {
 	//Función para registrar a un cliente
 	//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	@PostMapping(path={"/registrarCliente"})
-	public String  guardarCliente(@ModelAttribute("cliente") ClienteModel cliente){	
+	public String  registrarCliente(@ModelAttribute("cliente") ClienteModel cliente, RedirectAttributes redirectAttributes){	
 		try {
 			ObjectMapper objectMapper= new ObjectMapper();
 			String clienteJSON = objectMapper.writeValueAsString(cliente);
-			clienteService.guardarCliente(clienteJSON);
+			boolean result=clienteService.guardarCliente(clienteJSON);
+			if(result)
+				redirectAttributes.addFlashAttribute("successMessage", "El elemento fue creado con éxito!");
+			else
+				redirectAttributes.addFlashAttribute("errorMessage", "Ocurrió un error, trataremos de solucionarlo lo antes posible!");
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		return 	"redirect:/api/microservice/cliente/formRegistrarCliente";
+		}		
+		return 	"redirect:/";
 	}
 	
 	@GetMapping(path={"/devolverCliente"})
@@ -56,9 +61,12 @@ public class ClienteController {
         return "listaClientes";
 	}
 
-	@DeleteMapping(path={"/eliminarCliente"})
-	public void eliminarCliente(@RequestParam int id){
+	@GetMapping(path={"/eliminarCliente/{id}"})
+	public String eliminarCliente(@PathVariable int id,
+	RedirectAttributes redirectAttribute){
+		redirectAttribute.addFlashAttribute("successMessage", "Cliente con identificador: "+ id+ " eliminado");
 		clienteService.eliminarCliente(id);
+        return "redirect:/api/managinv/index";
 	}
 
 

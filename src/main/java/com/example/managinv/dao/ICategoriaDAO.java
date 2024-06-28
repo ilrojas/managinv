@@ -9,6 +9,7 @@ public interface ICategoriaDAO {
 
     Optional<CategoriaModel> devolverCategoria(int id);
     List<CategoriaModel> devolverCategorias();
-    Boolean guardarCategoria(CategoriaModel categoria);
+    CategoriaModel guardarCategoria(CategoriaModel categoria);
     void eliminarCategoria(int id);
+    CategoriaModel actualizarCategoria(CategoriaModel categoria);
 }

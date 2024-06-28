@@ -31,14 +31,17 @@ public class ClienteServiceImpl implements IClienteService{
 
 	@Transactional
 	public Boolean guardarCliente(String cliente) {
-		// TODO Auto-generated method stub
 		try {
 			ClienteModel clientenew=new Gson().fromJson(cliente, ClienteModel.class);
-			clienteDAO.guardarCliente(clientenew);
-			return true;
+			ClienteModel cli= clienteDAO.guardarCliente(clientenew);
+			if (cli != null) {
+				return true;
+			}
+			else
+				return false;
+			
 		} catch (Exception e) {
-			// TODO: handle exception
-			return false;
+			throw new RuntimeException("No se pudo insertar en la BD");
 		}
 		
 	}
@@ -48,6 +51,13 @@ public class ClienteServiceImpl implements IClienteService{
 		// TODO Auto-generated method stub
 		clienteDAO.eliminarCliente(id);
 	}
+
+	@Transactional
+	public Boolean actualizarCliente(ClienteModel cliente) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'actualizarCliente'");
+	}
+	
 	
 	//AQUI PODEMOS CREAR METODOS PERSONALIZADOS EN LA CAPA DE SERVICIOS
 }

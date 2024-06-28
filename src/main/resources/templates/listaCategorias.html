@@ -16,8 +16,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nombre Categoria</th>      
-                        <th>Fecha de Creación</th>                  
+                        <th>Nombre Categoria</th>                   
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -25,20 +24,19 @@
                     <tr th:each="categoria : ${listado}" th:id="${categoria.id_categoria}">
                         <td th:text="${categoria.id_categoria}"></td>
                         <td th:text="${categoria.nombre}"></td>
-                        <td th:text="${categoria.fecha_creacion}"></td>
                         <td >
-                            <button type="button" class="btn btn-success btn-sm" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,null,'${categoria.id_categoria}')">
+                            <a type="button" class="btn btn-success btn-sm" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,null,'${categoria.id_categoria}')">
                                 <i class="fa fa-eye"></i>
                                 Detalles
-                            </button>
-                            <button type="button" class="btn btn-success btn-sm" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,'${categoria.id_categoria}')">
+                            </a>
+                            <a type="button" class="btn btn-primary btn-sm" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,'${categoria.id_categoria}')">
                                 <i class="fa fa-pen"></i>
                                 Editar
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm"  title="Eliminar" th:onclick="acciones(ACTIONS.DELETE,null,'${categoria.id_categoria}')">
+                            </a>
+                            <a type="button" class="btn btn-danger btn-sm"  title="Eliminar" th:href="@{/api/microservice/categoria/eliminarCategoria/{id}(id=${categoria.id_categoria})}">
                                 <i class="fa fa-trash"></i>
                                 Eliminar
-                            </button>
+                            </a>
                         </td>
                     </tr>                   
                     <!-- Más filas según sea necesario -->

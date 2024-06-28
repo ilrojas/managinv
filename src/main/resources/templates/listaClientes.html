@@ -32,18 +32,18 @@
                         <td th:text="${cliente.telefono_cliente}"></td>
                         <td th:text="${cliente.direccion_cliente}"></td>
                         <td >
-                            <button type="button" class="btn btn-success btn-sm" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,'/api/managinv/devolverCliente','[(${cliente.id_cliente})]')">
+                            <a type="button" class="btn btn-success btn-sm" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,'/api/managinv/devolverCliente','[(${cliente.id_cliente})]')">
                                 <i class="fa fa-eye"></i>
                                 Detalles
-                            </button>
-                            <button type="button" class="btn btn-success btn-sm" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,null)">
+                            </a>
+                            <a type="button" class="btn btn-primary btn-sm" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,null)">
                                 <i class="fa fa-pen"></i>
                                 Editar
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm" title="Eliminar" th:onclick="acciones(ACTIONS.DELETE,null,null)">
+                            </a>
+                            <a type="button" class="btn btn-danger btn-sm" title="Eliminar" th:href="@{/api/microservice/cliente/eliminarCliente/{id}(id=${cliente.id_cliente})}">
                                 <i class="fa fa-trash"></i>
                                 Eliminar
-                            </button>
+                            </a>
                         </td>
                     </tr>                   
                     <!-- Más filas según sea necesario -->

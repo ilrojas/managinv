@@ -30,10 +30,10 @@ public class CategoriaDAOImpl implements ICategoriaDAO{
     }
 
     @Override
-    public Boolean guardarCategoria(CategoriaModel categoria) {
+    public CategoriaModel guardarCategoria(CategoriaModel categoria) {
         // TODO Auto-generated method stub        
-        categoriaRepository.save(categoria);
-        return true;
+        return categoriaRepository.save(categoria);
+        
         // throw new UnsupportedOperationException("Unimplemented method 'guardarCategoria'");
     }
 
@@ -42,6 +42,11 @@ public class CategoriaDAOImpl implements ICategoriaDAO{
         // TODO Auto-generated method stub
         categoriaRepository.deleteById(id);
         // throw new UnsupportedOperationException("Unimplemented method 'eliminarCategoria'");
+    }
+
+    @Override
+    public CategoriaModel actualizarCategoria(CategoriaModel categoria) {
+        return categoriaRepository.save(categoria);
     }
 
 }
