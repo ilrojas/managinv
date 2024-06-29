@@ -3,7 +3,6 @@ package com.example.managinv.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,9 +54,12 @@ public class CategoriaServicesImpl implements ICategoriaService{
     }
 
     @Transactional
-    public Boolean actualizarCategoria(CategoriaModel categoriaModel) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarCategoria'");
+    public Boolean actualizarCategoria(CategoriaModel categoria) {
+        CategoriaModel result = categoriaDAO.actualizarCategoria(categoria);
+        if(result != null)
+                return true;  
+            else
+                return false; 
     }
 
     

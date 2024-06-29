@@ -9,6 +9,7 @@ public interface IProveedorDAO {
 
     Optional<ProveedorModel> devolverProveedor(int id);
     List<ProveedorModel> devolverProveedores();    
-    Boolean guardarProveedor(ProveedorModel proveedor);
+    ProveedorModel guardarProveedor(ProveedorModel proveedor);
 	void eliminarProveedor(int id);
+    ProveedorModel actualizarProveedor( ProveedorModel proveedor);
 }

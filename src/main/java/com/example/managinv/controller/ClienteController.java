@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,14 +56,19 @@ public class ClienteController {
         List<ClienteModel> listadoClientes = clienteService.devolverClientes();
         model.addAttribute("cabecera", "Gestión de Clientes");		
 		model.addAttribute("subtitulo", "Listado de clientes");
-        model.addAttribute("listado", listadoClientes);
+		if (listadoClientes== null || listadoClientes.isEmpty()) {
+			model.addAttribute("errorMessage", "No se encontraron datos de Clientes almacenados");
+		} else {
+			model.addAttribute("listado", listadoClientes);
+		}
+        
         return "listaClientes";
 	}
 
 	@GetMapping(path={"/eliminarCliente/{id}"})
 	public String eliminarCliente(@PathVariable int id,
 	RedirectAttributes redirectAttribute){
-		redirectAttribute.addFlashAttribute("successMessage", "Cliente con identificador: "+ id+ " eliminado");
+		redirectAttribute.addFlashAttribute("successMessage", "Cliente con identificador ("+ id+ ") eliminado");
 		clienteService.eliminarCliente(id);
         return "redirect:/api/managinv/index";
 	}

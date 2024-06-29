@@ -34,9 +34,14 @@ public class ProveedorDAOImpl implements IProveedorDAO{
     }
 
     @Override
-    public Boolean guardarProveedor(ProveedorModel proveedor) {
+    public ProveedorModel guardarProveedor(ProveedorModel proveedor) {
         // TODO Auto-generated method stub
-        return proveedorRepository.save(proveedor)!=null?true:false;
+        return proveedorRepository.save(proveedor);
+    }
+
+    @Override
+    public ProveedorModel actualizarProveedor(ProveedorModel proveedor) {
+        return proveedorRepository.save(proveedor);
     }
     
 

@@ -7,9 +7,7 @@ import java.util.Optional;
 import com.example.managinv.model.ClienteModel;
 
 
-public interface IClienteService {
-
-	
+public interface IClienteService {	
 	List<ClienteModel> devolverClientes();
 	Boolean guardarCliente(String cliente);
 	Optional<ClienteModel> devolverCliente(int id);

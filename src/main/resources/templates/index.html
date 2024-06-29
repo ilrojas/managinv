@@ -45,6 +45,13 @@
                        scale(1.08);
             opacity: 0.6;
         }
+        .btnAction{
+            border-radius: 50px !important;
+        }
+        .btnAction:hover{
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.55)) !important;
+            scale: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -71,7 +78,7 @@
                     </a>
                 </li>
                 <li class="nav-item nav-item-side">
-                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/proveedores/devolverProveedores')">
+                    <a class="nav-link text-white" href="#" onclick="cargarVista('/api/microservice/proveedor/devolverProveedores')">
                         <i class="fa fa-truck me-2"></i>
                         Proveedores
                     </a>
@@ -124,11 +131,13 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
         </div>
-        <div class="alert alert-success" role="alert" th:if="${successMessage}" style="color:green;">
-            <p th:text="${successMessage}"></p>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage}" style="color:green;">
+            <p th:utext="'<strong>Operación exitosa: </strong>'+${successMessage}"></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="alert alert-danger" role="alert" th:if="${errorMessage}" style="color:red;">
-            <p th:text="${errorMessage}"></p>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorMessage}" style="color:red;">
+            <p th:utext="'<strong>Mensaje de alerta: </strong>'+${errorMessage}"></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <!-- Aquí se cargará el contenido dinámicamente -->
     </div>
@@ -179,7 +188,6 @@
                     break;
             
                 default:
-                //alert('clicaste en una accion');
                     break;
             }
 

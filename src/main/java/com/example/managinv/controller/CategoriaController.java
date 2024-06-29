@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,7 +53,7 @@ public class CategoriaController {
     @GetMapping(path = { "/eliminarCategoria/{id}" })
     public String eliminarCategoria(@PathVariable int id,
     RedirectAttributes redirectAttribute) {
-        redirectAttribute.addFlashAttribute("successMessage", "Caretgoria con identificador: "+ id+ " eliminada");
+        redirectAttribute.addFlashAttribute("successMessage", "Categoria con identificador ("+ id+ ") eliminada");
         categoriaService.eliminarCategoria(id);
         return "redirect:/api/managinv/index";
     }
@@ -68,9 +67,14 @@ public class CategoriaController {
 
     @GetMapping(path = { "/devolverCategorias" })
     public String devolverCategorias(Model model) {
-        List<CategoriaModel> listadoCategorias = categoriaService.devolverCategorias();
+        List<CategoriaModel> listadoCategorias = categoriaService.devolverCategorias();        
+        model.addAttribute("subtitulo", "Listado de Categorías");
         model.addAttribute("cabecera", "Gestión de Categorias");
-        model.addAttribute("listado", listadoCategorias);
+        if (listadoCategorias == null || listadoCategorias.isEmpty()) {
+            model.addAttribute("errorMessage", "No se encontraron datos de Categorías almacenadas");
+        } else {
+            model.addAttribute("listado", listadoCategorias);            
+        }
         return "listaCategorias";
     }
 

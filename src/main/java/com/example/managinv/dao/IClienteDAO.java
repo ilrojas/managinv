@@ -5,12 +5,10 @@ import java.util.Optional;
 
 import com.example.managinv.model.ClienteModel;
 
-public interface IClienteDAO {
-	
+public interface IClienteDAO {	
 	Optional<ClienteModel> devolverCliente(int id);
 	List<ClienteModel> devolverClientes();
 	ClienteModel guardarCliente(ClienteModel cliente);
 	void eliminarCliente(int id);
-	ClienteModel actualizarCliente(ClienteModel cliente);
-	
+	ClienteModel actualizarCliente(ClienteModel cliente);	
 }
