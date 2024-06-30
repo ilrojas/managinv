@@ -22,7 +22,8 @@
             width: 200px;
             height: calc(100vh - 56px); /* Altura ajustada para ocupar el espacio restante */
             padding-top: 20px;
-            background-color: #343a40; /* Color de fondo del sidebar */
+            /*background-color: #343a40; /* Color de fondo del sidebar */
+            background-color: #0d161c;
             color: #fff; /* Color de texto del sidebar */
         }
         #content {
@@ -30,6 +31,7 @@
             padding: 20px;
             overflow: auto;
             height: auto;
+            
         }
         .sidebar .nav-link {
             color: #adb5bd;
@@ -40,6 +42,14 @@
         .nav-item-side{
             transition: .2s ease-in-out;
         }
+        li.nav-item-side.active{
+            font-weight: 600;
+            transform: translateX(15px)
+                       scale(1.08);
+            opacity: 0.6;
+            color: aquamarine;
+        }
+
         .nav-item-side:hover{
             transform: translateX(15px)
                        scale(1.08);
@@ -157,7 +167,7 @@
             PRINCIPAL_MENU:'PRINCIPAL_MENU'
         };
 
-        function cargarVista(url,id=null,tipo) {            
+        function cargarVista(url,id=null,tipo="GET") {            
             $.ajax({
                 url: url,
                 type: tipo,
@@ -203,6 +213,18 @@
                 }
             });*/
         }
+
+        let elementsSidebar = document.querySelectorAll(".nav-item-side");
+
+        elementsSidebar.forEach(function(element) {
+            element.addEventListener("click", function() {
+                elementsSidebar.forEach(function(el) {
+                    el.classList.remove("active");
+                });
+                this.classList.add("active");
+            });
+        });
+        
     </script>
 </body>
 </html>
