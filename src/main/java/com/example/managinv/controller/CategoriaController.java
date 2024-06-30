@@ -38,7 +38,8 @@ public class CategoriaController {
             String categoriaJSON = objectMapper.writeValueAsString(categoria);
             boolean result = categoriaService.guardarCategoria(categoriaJSON);
             if (result)
-                redirectAttributes.addFlashAttribute("successMessage", "El elemento fue creado con éxito!");
+                redirectAttributes.addFlashAttribute("successMessage",
+                 "El elemento fue creado con éxito!");
             else
                 redirectAttributes.addFlashAttribute("errorMessage",
                         "Ocurrió un error, trataremos de solucionarlo lo antes posible!");
@@ -53,7 +54,8 @@ public class CategoriaController {
     @GetMapping(path = { "/eliminarCategoria/{id}" })
     public String eliminarCategoria(@PathVariable int id,
     RedirectAttributes redirectAttribute) {
-        redirectAttribute.addFlashAttribute("successMessage", "Categoria con identificador ("+ id+ ") eliminada");
+        redirectAttribute.addFlashAttribute("successMessage",
+         "Categoria con identificador ("+ id+ ") eliminada");
         categoriaService.eliminarCategoria(id);
         return "redirect:/api/managinv/index";
     }
@@ -71,7 +73,8 @@ public class CategoriaController {
         model.addAttribute("subtitulo", "Listado de Categorías");
         model.addAttribute("cabecera", "Gestión de Categorias");
         if (listadoCategorias == null || listadoCategorias.isEmpty()) {
-            model.addAttribute("errorMessage", "No se encontraron datos de Categorías almacenadas");
+            model.addAttribute("errorMessage",
+             "No se encontraron datos de Categorías almacenadas");
         } else {
             model.addAttribute("listado", listadoCategorias);            
         }
@@ -85,8 +88,10 @@ public class CategoriaController {
     public String formRegistrarCliente(Model model) {
         CategoriaModel categoria = new CategoriaModel();
         model.addAttribute("categoria", categoria);
-        model.addAttribute("cabecera", "Gestión de Categorias");
-        model.addAttribute("subtitulo", "Formulario de Registro de Categoria");
+        model.addAttribute("cabecera",
+         "Gestión de Categorias");
+        model.addAttribute("subtitulo",
+         "Formulario de Registro de Categoria");
         return "agregarCategoria";
     }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+        
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1>            
+    </div>
+
+    <h4> <span th:text="${subtitulo}">Subtitulo</span> </h4>
+    <div class="container mt-5">
+        <form class="row g-3" th:action="@{/api/microservice/proveedor/registrarProveedor}" th:object="${proveedor}" method="POST">
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <label for="nombreProveedor" class="form-label">Nombre Proveedor</label>
+              <input type="text" th:field="*{nombre}" class="form-control" id="nombreProveedor" name="nombreProveedor" placeholder="Ingrese el nombre del proveedor"required>
+            </div>
+            
+            <div class="col-md-12">
+              <label for="direccion" class="form-label">Dirección</label>
+              <textarea class="form-control" th:field="*{direccion}" id="direccion" name="direccion" rows="3" placeholder="Ingrese la dirección del proveedor" required></textarea>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <legend>Información Contacto</legend>
+              <div class="col-md-6">
+                <label for="nombreContacto" class="form-label">Nombre Contacto</label>
+                <input type="text" th:field="*{nombre_contacto}" class="form-control" id="nombreContacto" name="nombreContacto" placeholder="Ingrese el nombre del contacto"required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" th:field="*{email_contacto}" class="form-control" id="email" name="email" placeholder="Ingrese el correo electrónico" required>
+              </div>
+              <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" th:field="*{telefono_contacto}" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el número de teléfono"  required>
+              </div>
+            </fieldset>
+          </div>          
+          <div class="col-12">
+            <button type="submit" name="registrarProveedor" class="btn btn-primary">Registrar Proveedor</button>
+          </div>
+        </form>
+    </div>
+</body>
+</html>

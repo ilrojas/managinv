@@ -37,9 +37,11 @@ public class ClienteController {
 			String clienteJSON = objectMapper.writeValueAsString(cliente);
 			boolean result=clienteService.guardarCliente(clienteJSON);
 			if(result)
-				redirectAttributes.addFlashAttribute("successMessage", "El elemento fue creado con éxito!");
+				redirectAttributes.addFlashAttribute("successMessage",
+				 "El elemento fue creado con éxito!");
 			else
-				redirectAttributes.addFlashAttribute("errorMessage", "Ocurrió un error, trataremos de solucionarlo lo antes posible!");
+				redirectAttributes.addFlashAttribute("errorMessage",
+				 "Ocurrió un error, trataremos de solucionarlo lo antes posible!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -57,7 +59,8 @@ public class ClienteController {
         model.addAttribute("cabecera", "Gestión de Clientes");		
 		model.addAttribute("subtitulo", "Listado de clientes");
 		if (listadoClientes== null || listadoClientes.isEmpty()) {
-			model.addAttribute("errorMessage", "No se encontraron datos de Clientes almacenados");
+			model.addAttribute("errorMessage",
+			 "No se encontraron datos de Clientes almacenados");
 		} else {
 			model.addAttribute("listado", listadoClientes);
 		}
@@ -68,7 +71,8 @@ public class ClienteController {
 	@GetMapping(path={"/eliminarCliente/{id}"})
 	public String eliminarCliente(@PathVariable int id,
 	RedirectAttributes redirectAttribute){
-		redirectAttribute.addFlashAttribute("successMessage", "Cliente con identificador ("+ id+ ") eliminado");
+		redirectAttribute.addFlashAttribute("successMessage",
+		 "Cliente con identificador ("+ id+ ") eliminado");
 		clienteService.eliminarCliente(id);
         return "redirect:/api/managinv/index";
 	}
