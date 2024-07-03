@@ -13,25 +13,46 @@
     
     <style>
         body {
-            padding-top: 56px; /* Espacio para el navbar fijo */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 56px; /* altura de la navbar */
+
+            font-family: Segoe UI, system-ui, -apple-system, sans-serif;
+            font-size: 1rem;
+
+        }
+        #navbar {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        #main {
+            display: flex;
+            flex: 1;
         }
         #sidebar {
             position: fixed;
             top: 56px; /* Alineación debajo del navbar */
             left: 0;
-            width: 200px;
+            width: 250px;
             height: calc(100vh - 56px); /* Altura ajustada para ocupar el espacio restante */
             padding-top: 20px;
             /*background-color: #343a40; /* Color de fondo del sidebar */
             background-color: #0d161c;
             color: #fff; /* Color de texto del sidebar */
+            
         }
         #content {
-            margin-left: 200px; /* Ancho del sidebar */
+            margin-left: 260px; /* Ancho del sidebar */
             padding: 20px;
             overflow: auto;
-            height: auto;
-            
+            height: calc(100vh - 56px);
+            width: calc(100vw - 270px);
+            flex: 1;
         }
         .sidebar .nav-link {
             color: #adb5bd;
@@ -46,8 +67,6 @@
             font-weight: 600;
             transform: translateX(15px)
                        scale(1.08);
-            opacity: 0.6;
-            color: aquamarine;
         }
 
         .nav-item-side:hover{
@@ -62,6 +81,17 @@
         .btnAction:hover{
             filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.55)) !important;
             scale: 0.9;
+        }
+        .alert {
+            opacity: 1; /* Inicia con opacidad 1 */
+            transition: opacity 0.5s ease-in-out; /* Transición de opacidad */
+        }
+
+        .alert.hidden {
+            opacity: 0; /* Reducir opacidad a 0 para ocultar */
+        }
+        .hidden {
+            display: none !important; /* Asegura que el elemento se oculte completamente */
         }
     </style>
 </head>
@@ -137,11 +167,8 @@
         </div>
     </nav>
 
-    <!-- Contenido principal -->
-    <div id="content">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-        </div>
+    <!-- Contenido principal -->    
+    <div id="content"> 
         <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${successMessage}" style="color:green;">
             <p th:utext="'<strong>Operación exitosa: </strong>'+${successMessage}"></p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -150,8 +177,18 @@
             <p th:utext="'<strong>Mensaje de alerta: </strong>'+${errorMessage}"></p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <!-- Aquí se cargará el contenido dinámicamente -->
-    </div>
+        <div id="mainContent">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+            </div>           
+             <!-- Aquí se cargará el contenido dinámicamente -->
+            <div th:if="${contenido}">
+                <input type="hidden" th:id="contenidoOculto" th:value="${contenido}"></input>
+            </div>
+        </div>
+        
+    </div>   
+    
     
     <!-- Bootstrap JS y dependencias Popper.js desde el CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
@@ -170,12 +207,12 @@
         function cargarVista(url,id=null,tipo="GET") {            
             $.ajax({
                 url: url,
-                type: tipo,
+                method: tipo,
                 success: function(data) {
-                    $('#content').html(data);
+                    $('#mainContent').html(data);
                 },
                 error: function() {
-                    $('#content').html('A ocurrido un error al cargar el contenido. Estamos trabajando para solucionar el problema.');
+                    $('#mainContent').html('A ocurrido un error al cargar el contenido. Estamos trabajando para solucionar el problema.');
                 }
             });
         }  
@@ -223,6 +260,46 @@
                 });
                 this.classList.add("active");
             });
+        });
+
+        function toogleAlerts(){
+            let alerts = document.querySelectorAll(".alert");
+            alerts.forEach(function(el) {
+                setTimeout(() => {
+                    el.classList.add('hidden'); 
+                }, 3000);
+                
+            });
+           /* alerts.forEach(function(el){
+                setInterval(() => {
+                  if(el.classList.contains("show")){
+                    el.classList.remove("show");
+                    el.classList.add("hide");
+                  }
+                  else{
+                    el.classList.remove("hide");
+                    el.classList.add("show");
+                  }
+                 
+                }, 3000);
+            });*/
+        }
+
+        $(document).ready(function(){
+            let contenido =  document.getElementById("contenidoOculto").value;
+            if(contenido){
+                $.ajax({
+                    url: contenido,
+                    method: "GET",
+                    success: function(data) {
+                        $('#mainContent').html(data);
+                    },
+                    error: function() {
+                        $('#mainContent').html('A ocurrido un error al cargar el contenido. Estamos trabajando para solucionar el problema.');
+                    }
+                });
+                toogleAlerts();
+            }
         });
         
     </script>

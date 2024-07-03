@@ -35,6 +35,8 @@ public class ClienteController {
 		try {
 			ObjectMapper objectMapper= new ObjectMapper();
 			String clienteJSON = objectMapper.writeValueAsString(cliente);
+			redirectAttributes.addFlashAttribute("contenido",
+             "/api/microservice/cliente/formRegistrarCliente");
 			boolean result=clienteService.guardarCliente(clienteJSON);
 			if(result)
 				redirectAttributes.addFlashAttribute("successMessage",
@@ -70,8 +72,10 @@ public class ClienteController {
 
 	@GetMapping(path={"/eliminarCliente/{id}"})
 	public String eliminarCliente(@PathVariable int id,
-	RedirectAttributes redirectAttribute){
-		redirectAttribute.addFlashAttribute("successMessage",
+	RedirectAttributes redirectAttributes){
+		redirectAttributes.addFlashAttribute("contenido",
+		 "/api/microservice/cliente/devolverClientes");		
+		redirectAttributes.addFlashAttribute("successMessage",
 		 "Cliente con identificador ("+ id+ ") eliminado");
 		clienteService.eliminarCliente(id);
         return "redirect:/api/managinv/index";

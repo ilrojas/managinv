@@ -16,7 +16,7 @@
             <table class="table table-striped table-sm table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Nombre Proveedor</th>
                         <th>Contacto</th>
                         <th>Direccion</th>
@@ -24,8 +24,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="proveedor : ${listado}">
-                        <td th:text="${proveedor.id_proveedor}"></td>
+                    <tr th:each="proveedor, iterStat : ${listado}">
+                        <td th:text="${iterStat.count}"></td>
                         <td th:text="${proveedor.nombre}"></td>
                         <td th:text="${proveedor.nombre_contacto}"></td>
                         <td th:text="${proveedor.direccion}"></td>                        

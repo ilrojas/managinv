@@ -3,7 +3,11 @@
 <body>
         
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1>            
+        <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1> 
+        <button type="button" class="btn btn-primary btn-sm" title="Volver" th:onclick="cargarVista('/api/microservice/cliente/devolverClientes')">
+          <i class="fa fa-arrow-left"></i>
+          Volver al listado
+      </button>          
     </div>
 
     <h4> <span th:text="${subtitulo}">Subtitulo</span> </h4>

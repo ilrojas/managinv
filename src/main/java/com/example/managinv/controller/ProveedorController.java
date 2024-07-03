@@ -51,7 +51,9 @@ public class ProveedorController {
         proveedorServices.eliminarProveedor(id);
         redirectAttributes.addFlashAttribute("successMessage",
          "Proveedor con identificador ("+ id+ ") eliminado");
-        return "redirect:/api/managinv/index";
+         redirectAttributes.addFlashAttribute("contenido",
+          "/api/microservice/proveedor/devolverProveedores");
+        return "redirect:/api/managinv/";
 
     }
 
@@ -74,6 +76,8 @@ public class ProveedorController {
             ObjectMapper object = new ObjectMapper();
             String proveedorJSON= object.writeValueAsString(proveedor);
             boolean result = proveedorServices.guardarProveedor(proveedorJSON);
+            redirectAttributes.addFlashAttribute("contenido",
+             "/api/microservice/proveedor/formRegistrarProveedor");
             if (result) {
                 redirectAttributes.addFlashAttribute("successMessage",
                  "El elemento fue creado con éxito!");
@@ -81,10 +85,11 @@ public class ProveedorController {
                 redirectAttributes.addFlashAttribute("errorMessage",
                  "Ocurrió un error, trataremos de solucionarlo lo antes posible!");
             }
-            return "redirect:/api/managinv/index";
+            
+            return "redirect:/api/managinv/";
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/api/managinv/index";
+            return "redirect:/api/managinv/";
         }
     }
 

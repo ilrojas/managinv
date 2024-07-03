@@ -36,6 +36,8 @@ public class CategoriaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String categoriaJSON = objectMapper.writeValueAsString(categoria);
+            redirectAttributes.addFlashAttribute("contenido",
+             "/api/microservice/categoria/formRegistrarCategoria");
             boolean result = categoriaService.guardarCategoria(categoriaJSON);
             if (result)
                 redirectAttributes.addFlashAttribute("successMessage",
@@ -53,8 +55,10 @@ public class CategoriaController {
 
     @GetMapping(path = { "/eliminarCategoria/{id}" })
     public String eliminarCategoria(@PathVariable int id,
-    RedirectAttributes redirectAttribute) {
-        redirectAttribute.addFlashAttribute("successMessage",
+    RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("contenido",
+             "/api/microservice/categoria/devolverCategorias");
+        redirectAttributes.addFlashAttribute("successMessage",
          "Categoria con identificador ("+ id+ ") eliminada");
         categoriaService.eliminarCategoria(id);
         return "redirect:/api/managinv/index";
