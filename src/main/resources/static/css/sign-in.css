@@ -1,0 +1,66 @@
+html,
+body {
+  height: 100%;
+  background: url("/imgs/fondologuin.jpg") no-repeat;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  background-size: cover;
+  justify-content: center;
+  align-content: center;
+}
+
+*{
+  margin: 0;
+  padding: 0;  
+}
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input {
+  margin-bottom: 10px;
+  border : none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .2);
+  border-radius: 40px;
+  background: transparent;
+}
+
+.form-signin input::placeholder{
+  font-weight: 100;
+}
+.form-signin input:focus{
+  background: transparent;
+}
+
+.form-signin button{
+  border-radius: 40px;
+}
+
+/*.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border : none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, .2);
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}*/
+
+
+.wrapper{
+  width: 420px;
+  border: 2px solid rgba(255, 255, 255, .2);  
+  background: transparent;
+  border-radius: 10px;
+  padding: 30px 40px;
+  backdrop-filter: blur(30px);
+  color: #fff;
+}

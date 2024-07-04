@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/managinv")
 public class ClienteViewController {
 
-    
-
+    @GetMapping(path={"/loguin"})    
+    public String loguin(Model model){
+        return "loguin";
+    }
     
     @GetMapping(path={"/","/index","/home","/inicio"})
     public String index(Model model) {
         model.addAttribute("titulo", "Manage Inventory");       
-        return "index";
+        return "loguin";
     }
 
     public String cargarContenidoDinamico(){
