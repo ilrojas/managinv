@@ -51,7 +51,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping(path={"/devolverCliente"})
-	public Optional<ClienteModel> devolverCliente(@RequestParam int id){
+	public ClienteModel devolverCliente(@RequestParam int id){
 		return clienteService.devolverCliente(id);		
 	}
 

@@ -1,7 +1,6 @@
 package com.example.managinv.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,9 @@ public class ClienteServiceImpl implements IClienteService{
 	private IClienteDAO clienteDAO;
 	
 	@Transactional(readOnly = true)
-	public Optional<ClienteModel> devolverCliente(int id) {
+	public ClienteModel devolverCliente(int id) {
 		// TODO Auto-generated method stub
-		return clienteDAO.devolverCliente(id);
+		return clienteDAO.devolverCliente(id).orElseThrow(()->new RuntimeException("Cliente no encontrado"));
 	}
 
 	@Transactional(readOnly = true)
@@ -34,28 +33,27 @@ public class ClienteServiceImpl implements IClienteService{
 		try {
 			ClienteModel clientenew=new Gson().fromJson(cliente, ClienteModel.class);
 			ClienteModel cli= clienteDAO.guardarCliente(clientenew);
-			if (cli != null) {
-				return true;
-			}
-			else
-				return false;
-			
+			return (cli != null)?true:false;			
 		} catch (Exception e) {
-			throw new RuntimeException("No se pudo insertar en la BD");
+			throw new RuntimeException(e.getMessage());
 		}
 		
 	}
 
 	@Transactional
 	public void eliminarCliente(int id) {
-		// TODO Auto-generated method stub
 		clienteDAO.eliminarCliente(id);
 	}
 
 	@Transactional
-	public Boolean actualizarCliente(ClienteModel cliente) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'actualizarCliente'");
+	public Boolean actualizarCliente(String cliente) {
+		try {
+			ClienteModel clientenew=new Gson().fromJson(cliente, ClienteModel.class);
+			ClienteModel cli= clienteDAO.actualizarCliente(clientenew);
+			return (cli != null)?true:false;			
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 	
 	

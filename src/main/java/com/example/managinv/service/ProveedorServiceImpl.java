@@ -1,7 +1,6 @@
 package com.example.managinv.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,8 @@ public class ProveedorServiceImpl implements IProveedorService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProveedorModel> devolverProveedor(int id) {
-        return proveedorDAO.devolverProveedor(id);
+    public ProveedorModel devolverProveedor(int id) {
+        return proveedorDAO.devolverProveedor(id).orElseThrow(()->new RuntimeException("Proveedor no encontrado"));
     }
 
     @Override
@@ -32,12 +31,14 @@ public class ProveedorServiceImpl implements IProveedorService{
     @Override
     @Transactional()
     public Boolean guardarProveedor(String proveedor) {
-        ProveedorModel proveedorNew= new Gson().fromJson(proveedor, ProveedorModel.class);
+        try {
+            ProveedorModel proveedorNew= new Gson().fromJson(proveedor, ProveedorModel.class);
         ProveedorModel result = proveedorDAO.guardarProveedor(proveedorNew);
-        if(result != null)
-            return true;
-        else
-         return false;
+        return (result != null)?true:false;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        
     }
 
     @Override
@@ -48,12 +49,14 @@ public class ProveedorServiceImpl implements IProveedorService{
 
     @Override
     @Transactional()
-    public Boolean actualizarProveedor(ProveedorModel proveedor) {
-        ProveedorModel result = proveedorDAO.actualizarProveedor(proveedor);
-        if(result != null)
-                return true;  
-            else
-                return false; 
+    public Boolean actualizarProveedor(String proveedor) {
+        try {
+            ProveedorModel proveedorNew= new Gson().fromJson(proveedor, ProveedorModel.class);
+            ProveedorModel result = proveedorDAO.guardarProveedor(proveedorNew);
+            return (result != null)?true:false;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 }

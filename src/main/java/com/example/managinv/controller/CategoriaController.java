@@ -66,7 +66,7 @@ public class CategoriaController {
 
 
     @GetMapping(path = { "/devolverCategoria" })
-    public Optional<CategoriaModel> devolverCategoria(@RequestParam int id) {
+    public CategoriaModel devolverCategoria(@RequestParam int id) {
         return categoriaService.devolverCategoria(id);
 
     }
