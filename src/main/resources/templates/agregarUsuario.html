@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+        
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1> 
+        <button type="button" class="btn btn-success btn-sm" title="Volver" th:onclick="cargarVista('/api/microservice/usuario/devolverUsuarios')">
+          <i class="fa fa-arrow-left"></i>
+          Volver al listado
+      </button>          
+    </div>
+
+    <h4> <span th:text="${subtitulo}">Subtitulo</span> </h4>
+    <div class="container mt-5">
+        <form class="row g-3" th:action="@{/api/microservice/usuario/registrarUsuario}" th:object="${usuario}" method="POST">
+          <div class="col-md-4">
+            <label for="nombreUsuario" class="control-label"><strong>Nombre Completo</strong></label>
+            <input type="text" th:field="*{nombre}" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingrese el nombre del usuario"required>
+          </div>
+          <div class="col-md-4">
+            <label for="usuario" class="control-label"><strong>Usuario</strong></label>
+            <input type="text" th:field="*{usuario}" class="form-control" id="usuario" name="usuario" placeholder="Ingrese el usuario" required>
+          </div>
+          <div class="col-md-4">
+            <label for="roles"><strong>Roles a asignar:</strong></label><br>
+            <details>
+                <summary>Seleccionar Rol</summary>
+                <select id="roles" name="selectedRoles" multiple required>
+                    <option th:each="roles : ${roles}" th:value="${roles.id}" th:text="${roles.rol}"></option>
+                </select>
+            </details>
+          </div>
+          <div class="col-md-4">
+            <label for="passwordUsuario" class="control-label"><strong>Contraseña</strong></label>
+            <input type="password" th:field="*{pass}" class="form-control" id="passwordUsuario" name="passwordUsuario" placeholder="Ingrese el nombre del cliente" required>
+            <div class="form-check form-switch">
+              <input class="form-check-input " type="checkbox" role="switch" id="checkPass">
+              <label class="form-check-label" for="checkPass">Mostrar</label>
+            </div>
+            
+          </div>
+          <div class="col-md-4">
+            <label for="formFileSm" class="control-label"><strong>Imagen de perfil</strong></label>
+            <input class="form-control form-control" th:field="*{imagen_perfil}" id="formFileSm" type="file">
+          </div>          
+          
+          <div class="col-12">
+            <button type="submit" name="registrarUsuario" class="btn btn-success">Registrar Usuario</button>
+          </div>
+        </form>
+    </div>
+</body>
+</html>

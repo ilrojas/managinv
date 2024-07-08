@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1>
             
-                <button type="button" class="btn btn-primary btn-sm" title="Adicionar" th:onclick="acciones(ACTIONS.ADD,'/api/microservice/proveedor/formRegistrarProveedor',null)">
+                <button type="button" class="btn btn-success btn-sm" title="Adicionar" th:onclick="acciones(ACTIONS.ADD,'/api/microservice/proveedor/formRegistrarProveedor',null)">
                     <i class="fa fa-plus"></i>
                     Nuevo
                 </button>
@@ -30,15 +30,15 @@
                         <td th:text="${proveedor.nombre_contacto}"></td>
                         <td th:text="${proveedor.direccion}"></td>                        
                         <td >
-                            <a type="button" class="btn btn-success btn-sm btnAction" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,'','[(${proveedor.id_proveedor})]')">
+                            <a type="button" class="btn btn-outline-primary btn-sm btnAction" title="Ver detalles" th:onclick="acciones(ACTIONS.DETAILS,'','[(${proveedor.id_proveedor})]')">
                                 <i class="fa fa-eye"></i>
                                 Detalles
                             </a>
-                            <a type="button" class="btn btn-primary btn-sm btnAction" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,null)">
+                            <a type="button" class="btn btn-outline-primary btn-sm btnAction" title="Editar" th:onclick="acciones(ACTIONS.EDIT,null,null)">
                                 <i class="fa fa-pen"></i>
                                 Editar
                             </a>
-                            <a type="button" class="btn btn-danger btn-sm btnAction" title="Eliminar" th:href="@{/api/microservice/proveedor/eliminarProveedor/{id}(id=${proveedor.id_proveedor})}">
+                            <a type="button" class="btn btn-outline-danger btn-sm btnAction" title="Eliminar" th:href="@{/api/microservice/proveedor/eliminarProveedor/{id}/{nombre}(id=${proveedor.id_proveedor},nombre=${proveedor.nombre})}">
                                 <i class="fa fa-trash"></i>
                                 Eliminar
                             </a>

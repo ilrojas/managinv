@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2"><span th:text="${cabecera}"> Valor por defecto si esta vacia la variable</span></h1>
             
-                <button type="button" class="btn btn-success btn-sm" title="Adicionar" th:onclick="acciones(ACTIONS.ADD,'/api/microservice/usuario/formRegistrarUsuario',null)">
+                <button type="button" class="btn btn-success btn-sm" title="Adicionar" th:onclick="acciones(ACTIONS.ADD,'/api/microservice/roles/formRegistrarRol',null)">
                     <i class="fa fa-plus"></i>
                     Nuevo
                 </button>
@@ -17,22 +17,18 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th></th>
-                        <th>Nombre Usuario</th>
-                        <th>Usuario</th>
+                        <th>Rol</th>
                         <th>Fecha de Creacion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="usuario, iterStat  : ${listado}">
+                    <tr th:each="rol, iterStat  : ${listado}">
                         <td th:text="${iterStat.count}"></td>
-                        <td ><img style="width: 50px; height: 50px;" src="/imgs/usuario.png" alt="Foto de perfil"/></td>
-                        <td th:text="${usuario.nombre}"></td>
-                        <td th:text="${usuario.usuario}"></td>
-                        <td th:text="${usuario.fecha_creacion}"></td>
+                        <td th:text="${rol.rol}"></td>
+                        <td th:text="${rol.fecha_creacion}"></td>
                         <td >
-                            <a type="button" class="btn btn-outline-primary btn-sm btnAction elementoDetalle" th:attr="data-id=${usuario.id}" title="Ver detalles" >
+                            <a type="button" class="btn btn-outline-primary btn-sm btnAction elementoDetalle" th:attr="data-id=${rol.id}" title="Ver detalles" >
                                 <i class="fa fa-eye"></i>
                                 Detalles
                             </a>
@@ -40,7 +36,7 @@
                                 <i class="fa fa-pen"></i>
                                 Editar
                             </a>
-                            <a type="button" class="btn btn-outline-danger btn-sm btnAction" title="Eliminar" th:href="@{/api/microservice/cliente/eliminarCliente/{id}(id=${usuario.id})}">
+                            <a type="button" class="btn btn-outline-danger btn-sm btnAction" title="Eliminar" th:href="@{/api/microservice/roles/eliminarRol/{id}(id=${rol.id})}">
                                 <i class="fa fa-trash"></i>
                                 Eliminar
                             </a>

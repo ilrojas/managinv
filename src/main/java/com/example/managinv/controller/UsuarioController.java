@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.managinv.service.IRolesService;
 import com.example.managinv.service.IUsuarioService;
+import com.example.managinv.model.RolesModel;
 import com.example.managinv.model.UsuarioModel;
+
 
 @Controller
 @RequestMapping("/api/microservice/usuario")
@@ -18,6 +21,9 @@ public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
+
+    @Autowired
+    private IRolesService rolService;
 
     @GetMapping( path={ "/devolverUsuarios" } )
     public String devolverUsuarios(Model model){
@@ -31,4 +37,16 @@ public class UsuarioController {
         }
         return "listaUsuarios";
     }
+
+    @GetMapping(path={"formRegistrarUsuario"})
+    public String formRegistrarUsuario(Model model) {
+        UsuarioModel usuario = new UsuarioModel();
+		model.addAttribute("usuario", usuario);
+        model.addAttribute("subtitulo", "Agregar Usuarios");
+        model.addAttribute("cabecera", "Gestión de Usuarios");
+        List<RolesModel> roles = rolService.devolverRoles();
+        model.addAttribute("roles", roles);
+        return "agregarUsuario";
+    }
+    
 }

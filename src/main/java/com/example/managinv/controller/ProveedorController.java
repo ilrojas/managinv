@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -45,12 +44,12 @@ public class ProveedorController {
         return "listaProveedores";
     }
 
-    @GetMapping(path={"/eliminarProveedor/{id}"})    
-    public String eliminarProveedor(@PathVariable int id,
+    @GetMapping(path={"/eliminarProveedor/{id}/{nombre}"})    
+    public String eliminarProveedor(@PathVariable int id,@PathVariable String nombre,
     RedirectAttributes redirectAttributes){
         proveedorServices.eliminarProveedor(id);
         redirectAttributes.addFlashAttribute("successMessage",
-         "Proveedor con identificador ("+ id+ ") eliminado");
+         "Proveedor "+ nombre+ " eliminado");
          redirectAttributes.addFlashAttribute("contenido",
           "/api/microservice/proveedor/devolverProveedores");
         return "redirect:/api/managinv/";

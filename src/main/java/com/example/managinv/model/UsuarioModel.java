@@ -1,9 +1,11 @@
 package com.example.managinv.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.net.ntp.TimeStamp;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +18,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
@@ -32,22 +36,29 @@ public class UsuarioModel {
     @Column(name="usuario")
     private String usuario;
 
+    @Column(name="nombre")
+    private String nombre;
+
     @Column(name="pass")
     private String pass;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = ISO.DATE)
     @Column(name="fecha_creacion")
-    private TimeStamp fecha_creacion;
+    private Date fecha_creacion;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = ISO.DATE)
     @Column(name="fecha_actualizacion")
-    private TimeStamp fecha_actualizacion;
+    private Date fecha_actualizacion;
 
     @Column(name="imagen_perfil")
     private String imagen_perfil;
 
-   /*  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "usuario_roles",
                joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id"))
-    private List<RolesModel> roles = new ArrayList<RolesModel>();*/
+    private List<RolesModel> roles = new ArrayList<RolesModel>();
 
 }
