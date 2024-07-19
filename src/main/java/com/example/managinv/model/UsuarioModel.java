@@ -33,7 +33,7 @@ public class UsuarioModel {
     @Column(name="id")
     private int id;
 
-    @Column(name="usuario")
+    @Column(name="usuario", unique = true)
     private String usuario;
 
     @Column(name="nombre")
@@ -41,6 +41,15 @@ public class UsuarioModel {
 
     @Column(name="pass")
     private String pass;
+
+    @Column(name="is_Enabled")
+    private boolean isEnabled;
+    @Column(name="account_No_Expired")
+    private boolean accountNoExpired;
+    @Column(name="account_No_Locked")
+    private boolean accountNoLocked;
+    @Column(name="credential_No_Expired")
+    private boolean credentialNoExpired;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = ISO.DATE)
